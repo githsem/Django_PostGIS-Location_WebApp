@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title> Nearby Shops</title>
+  </head>
+  <body class="container">
+    {% if request.POST %}
+    <div style="margin-top: 5%; box-shadow: 10px 5px 5px rgb(115, 117, 117);">
+        <nav style="background-color: rgb(10, 151, 132);">
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo center" style="font-family: cursive; "> Nearby 10 Shops</a>
+            </div>
+          </nav>
+          <br>
+      
+          {% if shops %}
+          
+          <ul class="collection">
+            {% for shop in shops %}
+            <li class="collection-item"><a class="btn-floating btn-small pulse" style="background-color: rgb(66, 129, 247);"><i class="material-icons">add_location</i></a>
+              <b>{{ shop.name }}:</b>  {{shop.distance}}
+            </li>
+          
+            {% endfor %}
+          </ul>
+          <a class="btn waves-effect waves-light right" style="color: black ;background-color: rgb(223, 80, 139); box-shadow: 10px 5px 5px rgb(115, 117, 117);" type="submit" name="action" href="/" onMouseOver="this.style.color='yellow'" onMouseOut="this.style.color='black'">
+              <i class="material-icons right" >keyboard_return</i>
+              Back                  
+          </a>
+      
+    </div>
+    
+    {% endif %} 
+    {% else %}
+
+    <div style="margin-top: 22%; margin-left: 25%; ">
+        <h3 style="font-family: cursive;">Find shops near you...</h3>
+        <br><br>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row"> 
+              <div class="input-field col s3">
+                <input
+                  value=""
+                  id="latitude"
+                  type="text"
+                  class="validate"
+                  name="latitude"
+                />
+                <label class="active" for="latitude">Latitude</label>
+              </div>
+              <div class="input-field col s3">
+                <input
+                  value=""
+                  id="longitude"
+                  type="text"
+                  class="validate"
+                  name="longtitude"
+                />
+                <label class="active" for="longitude">Longitude</label>
+              </div>
+      <br>
+              <button
+                class="btn waves-effect waves-light"
+                type="submit"
+                name="action"
+                style="box-shadow: 6px 3px 3px rgb(115, 117, 117);"
+              >
+              <i class="material-icons left">add_location</i>
+                Search
+                
+              </button>
+              
+          </form>
+    </div>
+    
+    {% endif %}
+
+    <script>
+      $(document).ready(function () {
+        M.updateTextFields();
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
