@@ -14,7 +14,7 @@ class Home(generic.ListView):
     def post(self, request, *args, **kwargs):
         try:
             latitude = float(request.POST.get("latitude"))
-            longitude = float(request.POST.get("longtitude"))
+            longitude = float(request.POST.get("longitude"))
 
             user_location = Point(longitude, latitude, srid=4326)
             queryset = Shop.objects.annotate( 
